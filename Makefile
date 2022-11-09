@@ -1,9 +1,14 @@
 SRCS = $(wildcard *.cpp)
-HEADERS = $(wildcard *.hpp)
+HEADERS = $(wildcard *.h)
 OBJS = $(SRCS:.cpp=.o)
+TESTS = $(wildcard tests/*.cpp)
+TEST_OBJS = $(TESTS:.cpp=.o)
+CMAKE_BUILD_DIR = build/
+GTEST_TARGET = build/towerdefense_tests
 TARGET = towerdefense
+TEST_TARGET = towerdefense_tests
 
-.PHONY: clean run
+.PHONY: clean run test
 
 $(TARGET): $(OBJS)
 	g++ -O2 $^ -LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system -o $@
@@ -11,8 +16,21 @@ $(TARGET): $(OBJS)
 $(OBJS): $(SRCS) $(HEADERS)
 	g++ -O2 -c $^ -ISFML/include
 
-clean:
-	rm $(OBJS) $(TARGET)
+$(TEST_OBJS): $(TESTS)
+	g++ -c $^ -o $@
 
-run:
+$(TEST_TARGET): $(TEST_OBJS)
+	g++ $^ -o $@
+
+$(GTEST_TARGET): $(TESTS)
+	cmake -S . -B $(CMAKE_BUILD_DIR)
+	cmake --build $(CMAKE_BUILD_DIR)
+
+clean:
+	rm -rf $(OBJS)$(TARGET) $(TEST_TARGET) $(TEST_OBJS) $(CMAKE_BUILD_DIR)
+
+run: $(TARGET)
 	LD_LIBRARY_PATH=SFML/lib ./$(TARGET)
+
+test: $(GTEST_TARGET)
+	./$^
