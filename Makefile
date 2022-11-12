@@ -11,10 +11,10 @@ TEST_TARGET = towerdefense_tests
 .PHONY: clean run test
 
 $(TARGET): $(OBJS)
-	g++ -O2 $^ -LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system -o $@
+	g++ $^ -LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system -o $@
 
 $(OBJS): $(SRCS) $(HEADERS)
-	g++ -O2 -c $^ -ISFML/include
+	g++ -c $^ -ISFML/include
 
 $(TEST_OBJS): $(TESTS)
 	g++ -c $^ -o $@
