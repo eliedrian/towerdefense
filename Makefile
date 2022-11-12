@@ -10,6 +10,9 @@ TEST_TARGET = towerdefense_tests
 
 .PHONY: clean run test
 
+run: $(TARGET)
+	LD_LIBRARY_PATH=SFML/lib ./$(TARGET)
+
 $(TARGET): $(OBJS)
 	g++ $^ -LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system -o $@
 
@@ -28,9 +31,6 @@ $(GTEST_TARGET): $(TESTS)
 
 clean:
 	rm -rf $(OBJS) $(TARGET) $(TEST_TARGET) $(TEST_OBJS) $(CMAKE_BUILD_DIR)
-
-run: $(TARGET)
-	LD_LIBRARY_PATH=SFML/lib ./$(TARGET)
 
 test: $(GTEST_TARGET)
 	./$^
