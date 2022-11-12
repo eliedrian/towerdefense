@@ -27,7 +27,7 @@ $(GTEST_TARGET): $(TESTS)
 	cmake --build $(CMAKE_BUILD_DIR)
 
 clean:
-	rm -rf $(OBJS)$(TARGET) $(TEST_TARGET) $(TEST_OBJS) $(CMAKE_BUILD_DIR)
+	rm -rf $(OBJS) $(TARGET) $(TEST_TARGET) $(TEST_OBJS) $(CMAKE_BUILD_DIR)
 
 run: $(TARGET)
 	LD_LIBRARY_PATH=SFML/lib ./$(TARGET)
