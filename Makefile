@@ -1,5 +1,6 @@
 SRCS = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h)
+PRECOMP_HEADERS = $(HEADERS:.h=.h.gch)
 OBJS = $(SRCS:.cpp=.o)
 TESTS = $(wildcard tests/*.cpp)
 TEST_OBJS = $(TESTS:.cpp=.o)
@@ -30,7 +31,7 @@ $(GTEST_TARGET): $(TESTS)
 	cmake --build $(CMAKE_BUILD_DIR)
 
 clean:
-	rm -rf $(OBJS) $(TARGET) $(TEST_TARGET) $(TEST_OBJS) $(CMAKE_BUILD_DIR)
+	rm -rf $(OBJS) $(TARGET) $(TEST_TARGET) $(TEST_OBJS) $(CMAKE_BUILD_DIR) $(PRECOMP_HEADERS)
 
 test: $(GTEST_TARGET)
 	./$^
