@@ -2,3 +2,4 @@ SFML/
 tags
 .ccls-cache/
 *.gch
+*.o
