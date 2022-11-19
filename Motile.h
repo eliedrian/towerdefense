@@ -4,5 +4,6 @@
 class Motile {
 	public:
 		virtual void move(sf::Vector2f, sf::Time&) = 0;
+		virtual void move(sf::Time&) = 0;
 };
 #endif
